@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Для моєї коханої ❤️</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --rose: #FF6B9D;
+            --deep-rose: #C44569;
+            --cream: #FFF5F7;
+            --gold: #FFD700;
+            --shadow: rgba(196, 69, 105, 0.3);
+        }
+
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #FFF5F7 0%, #FFE5EC 50%, #FFF0F5 100%);
+            min-height: 100vh;
+        }
+
+        /* Floating hearts background */
+        .hearts-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .heart-float {
+            position: absolute;
+            font-size: 20px;
+            animation: float-up 15s infinite ease-in-out;
+            opacity: 0;
+        }
+
+        @keyframes float-up {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* First page - Valentine card */
+        .valentine-page {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 1;
+            opacity: 1;
+            transition: opacity 0.8s ease;
+        }
+
+        .valentine-page.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .valentine-card {
+            background: white;
+            border-radius: 30px;
+            padding: 60px 50px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 30px 80px var(--shadow);
+            text-align: center;
+            position: relative;
+            animation: card-entrance 1s ease-out;
+        }
+
+        @keyframes card-entrance {
+            from {
+                transform: scale(0.8) translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1) translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .valentine-card::before {
+            content: '💕';
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 80px;
+            animation: pulse-heart 2s infinite;
+        }
+
+        @keyframes pulse-heart {
+            0%, 100% {
+                transform: translateX(-50%) scale(1);
+            }
+            50% {
+                transform: translateX(-50%) scale(1.2);
+            }
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            font-weight: 900;
+            color: var(--deep-rose);
+            margin-bottom: 30px;
+            line-height: 1.2;
+        }
+
+        .message {
+            font-size: 24px;
+            color: #555;
+            margin-bottom: 50px;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        .question {
+            font-size: 28px;
+            color: var(--deep-rose);
+            margin-bottom: 40px;
+            font-weight: 600;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            height: 80px;
+            margin: 0 auto;
+            max-width: 500px;
+        }
+
+        button {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .btn-yes {
+            padding: 18px 50px;
+            font-size: 22px;
+            background: linear-gradient(135deg, var(--rose), var(--deep-rose));
+            color: white;
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-yes:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px var(--shadow);
+        }
+
+        .btn-no {
+            padding: 12px 30px;
+            font-size: 16px;
+            background: white;
+            color: var(--deep-rose);
+            border: 2px solid var(--rose);
+            position: absolute;
+            transition: all 0.1s ease;
+            z-index: 2;
+            left: 0;
+        }
+
+        /* Love page with photos */
+        .love-page {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, #FFE5EC 0%, #FFF0F5 50%, #FFE5EC 100%);
+            display: none;
+            opacity: 0;
+            z-index: 2;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 60px 20px;
+        }
+
+        .love-page.active {
+            display: block;
+            animation: fade-in 1s ease forwards;
+        }
+
+        @keyframes fade-in {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .love-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-bottom: 60px;
+        }
+
+        .love-header {
+            text-align: center;
+            margin-bottom: 80px;
+            animation: slide-down 1s ease;
+        }
+
+        @keyframes slide-down {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .love-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 72px;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--rose), var(--deep-rose));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+        }
+
+        .love-message {
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
+            margin-bottom: 60px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            animation: fade-in 1s 0.5s ease backwards;
+        }
+
+        .love-message p {
+            font-size: 28px;
+            line-height: 1.8;
+            color: #444;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .love-message p:last-child {
+            margin-bottom: 0;
+        }
+
+        .highlight {
+            color: var(--deep-rose);
+            font-weight: 600;
+            font-style: italic;
+        }
+
+        /* Photo collage */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .photo-item {
+            position: relative;
+            background: white;
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            transform: rotate(0deg);
+            transition: all 0.4s ease;
+            animation: photo-appear 0.8s ease backwards;
+        }
+
+        .photo-item:nth-child(1) { animation-delay: 0.2s; transform: rotate(-2deg); }
+        .photo-item:nth-child(2) { animation-delay: 0.4s; transform: rotate(1deg); }
+        .photo-item:nth-child(3) { animation-delay: 0.6s; transform: rotate(-1deg); }
+        .photo-item:nth-child(4) { animation-delay: 0.8s; transform: rotate(2deg); }
+        .photo-item:nth-child(5) { animation-delay: 1s; transform: rotate(-1.5deg); }
+        .photo-item:nth-child(6) { animation-delay: 1.2s; transform: rotate(1.5deg); }
+
+        @keyframes photo-appear {
+            from {
+                transform: scale(0) rotate(0deg);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .photo-item:hover {
+            transform: scale(1.05) rotate(0deg) !important;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.15);
+            z-index: 10;
+        }
+
+        .photo-placeholder {
+            width: 100%;
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, #FFE5EC, #FFF0F5);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            margin-bottom: 15px;
+        }
+
+        .photo-caption {
+            text-align: center;
+            font-size: 18px;
+            color: var(--deep-rose);
+            font-style: italic;
+        }
+
+        .final-message {
+            background: linear-gradient(135deg, var(--rose), var(--deep-rose));
+            color: white;
+            padding: 60px;
+            border-radius: 30px;
+            text-align: center;
+            box-shadow: 0 30px 80px var(--shadow);
+            animation: fade-in 1s 1.5s ease backwards;
+        }
+
+        .final-message h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            font-weight: 900;
+            margin-bottom: 30px;
+        }
+
+        .final-message p {
+            font-size: 26px;
+            line-height: 1.8;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 36px;
+            }
+
+            .message {
+                font-size: 20px;
+            }
+
+            .question {
+                font-size: 22px;
+            }
+
+            button {
+                padding: 14px 30px;
+                font-size: 18px;
+            }
+
+            .love-header h2 {
+                font-size: 48px;
+            }
+
+            .love-message p {
+                font-size: 22px;
+            }
+
+            .photo-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .final-message h3 {
+                font-size: 36px;
+            }
+
+            .final-message p {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating hearts background -->
+    <div class="hearts-bg" id="heartsContainer"></div>
+
+    <!-- First page - Valentine card -->
+    <div class="valentine-page" id="valentinePage">
+        <div class="valentine-card">
+            <h1>Для любімої коханої</h1>
+            <p class="message">
+                У цей особливий день я хочу сказати тобі щось важливе...
+            </p>
+            <p class="question">Хочеш дізнатися, що саме? 💌</p>
+            <div class="buttons">
+                <button class="btn-yes" onclick="showLove()">Так! ❤️</button>
+                <button class="btn-no" id="btnNo">Ні 😔</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Second page - Love declaration with photos -->
+    <div class="love-page" id="lovePage">
+        <div class="love-content">
+            <div class="love-header">
+                <h2>Я кохаю тебе! ❤️</h2>
+            </div>
+
+            <div class="love-message">
+                <p>
+                    Кожен день з тобою — це <span class="highlight">справжнє щастя</span>. 
+                    Ти робиш моє життя яскравішим, наповнюєш його сенсом і радістю.
+                </p>
+                <p>
+                    Твоя усмішка — це те, що дарує мені сили кожного ранку. 
+                    Твоя ніжність — це те, що зігріває моє серце.
+                </p>
+                <p>
+                    Ти — <span class="highlight">найкраще</span>, що траплялося зі мною. 
+                    І я хочу проводити з тобою кожну мить свого життя.
+                </p>
+            </div>
+
+            <div class="photo-grid">
+                <div class="photo-item">
+                    <div class="photo-placeholder" style="background-image: url('1.jpg'); background-size: cover;"></div>
+                    <div class="photo-caption">Класні фотосесії разом</div>
+                </div>
+                <div class="photo-item">
+                    <div class="photo-placeholder" style="background-image: url('2.jpg'); background-size: cover;"></div>
+                    <div class="photo-caption">Ти і я</div>
+                </div>
+                <div class="photo-item">
+                    <div class="photo-placeholder" style="background-image: url('3.jpg'); background-size: cover;"></div>
+                    <div class="photo-caption">Кожен день з тобою</div>
+                </div>
+                <div class="photo-item">
+                    <div class="photo-placeholder" style="background-image: url('4.jpg'); background-size: cover;"></div>
+                    <div class="photo-caption">Наша любов</div>
+                </div>
+                <div class="photo-item">
+                    <div class="photo-placeholder" style="background-image: url('5.jpg'); background-size: cover;"></div>
+                    <div class="photo-caption">Особливі миті</div>
+                </div>
+                <div class="photo-item">
+                    <div class="photo-placeholder" style="background-image: url('6.jpg'); background-size: cover;"></div>
+                    <div class="photo-caption">Завжди веселі</div>
+                </div>
+				<div class="photo-item">
+                    <div class="photo-placeholder" style="background-image: url('7.jpg'); background-size: cover;"></div>
+                    <div class="photo-caption">Любімі ми</div>
+                </div>
+				<div class="photo-item">
+                    <div class="photo-placeholder" style="background-image: url('8.jpg'); background-size: cover;"></div>
+                    <div class="photo-caption">І теж любімі ми</div>
+                </div>
+				<div class="photo-item">
+                    <div class="photo-placeholder" style="background-image: url('9.jpg'); background-size: cover;"></div>
+                    <div class="photo-caption">А це ми ще не знали, шо ми такі любімі</div>
+                </div>
+            </div>
+
+            <div class="final-message">
+                <h3>З Днем Святого Валентина! 💝</h3>
+                <p>
+                    Дякую, що ти є в моєму житті. Дякую за кожну усмішку, 
+                    за кожне обійми, за те, що ти — це ти. 
+                    Кохаю тебе більше, ніж будь-які слова можуть це передати
+                </p>
+                <p style="margin-top: 30px; font-size: 32px;">
+                    Навіки твій Льоса❤️
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create floating hearts
+        function createFloatingHearts() {
+            const container = document.getElementById('heartsContainer');
+            const hearts = ['❤️', '💕', '💖', '💗', '💓', '💝'];
+            
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart-float';
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 15 + 's';
+                heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+                container.appendChild(heart);
+            }
+        }
+
+        createFloatingHearts();
+
+        // Make "No" button run away from cursor - can jump anywhere on screen
+        const btnNo = document.getElementById('btnNo');
+        const btnYes = document.querySelector('.btn-yes');
+        const valentineCard = document.querySelector('.valentine-card');
+        
+        // Position No button initially to the left of Yes button
+        function initializeNoButton() {
+            const yesRect = btnYes.getBoundingClientRect();
+            const container = btnNo.parentElement;
+            const containerRect = container.getBoundingClientRect();
+            const cardRect = valentineCard.getBoundingClientRect();
+            
+            // Position to the left of Yes button with gap
+            const btnNoRect = btnNo.getBoundingClientRect();
+            const initialX = (containerRect.width / 2) - yesRect.width / 2 - btnNoRect.width - 30;
+            btnNo.style.left = initialX + 'px';
+            btnNo.style.top = '0px';
+        }
+
+        // Wait for fonts to load before positioning
+        document.fonts.ready.then(() => {
+            initializeNoButton();
+        });
+
+        // Detect cursor proximity and move away - can move anywhere on viewport
+        document.addEventListener('mousemove', function(e) {
+            const btnRect = btnNo.getBoundingClientRect();
+            const btnCenterX = btnRect.left + btnRect.width / 2;
+            const btnCenterY = btnRect.top + btnRect.height / 2;
+            
+            // Calculate distance from cursor to button center
+            const distance = Math.sqrt(
+                Math.pow(e.clientX - btnCenterX, 2) + 
+                Math.pow(e.clientY - btnCenterY, 2)
+            );
+            
+            // If cursor is within 120px of button, move it away
+            if (distance < 120) {
+                moveNoButtonAwayAnywhere(e.clientX, e.clientY, btnRect);
+            }
+        });
+
+        btnNo.addEventListener('mouseenter', function(e) {
+            const btnRect = btnNo.getBoundingClientRect();
+            moveNoButtonAwayAnywhere(e.clientX, e.clientY, btnRect);
+        });
+
+        btnNo.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const btnRect = btnNo.getBoundingClientRect();
+            moveNoButtonAwayAnywhere(touch.clientX, touch.clientY, btnRect);
+        });
+
+        // Prevent any click on No button
+        btnNo.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            const btnRect = btnNo.getBoundingClientRect();
+            moveNoButtonAwayAnywhere(e.clientX, e.clientY, btnRect);
+        });
+
+        function moveNoButtonAwayAnywhere(cursorX, cursorY, btnRect) {
+            const cardRect = valentineCard.getBoundingClientRect();
+            const container = btnNo.parentElement;
+            const containerRect = container.getBoundingClientRect();
+            
+            // Calculate vector away from cursor
+            const btnCenterX = btnRect.left + btnRect.width / 2;
+            const btnCenterY = btnRect.top + btnRect.height / 2;
+            
+            let deltaX = btnCenterX - cursorX;
+            let deltaY = btnCenterY - cursorY;
+            
+            // Normalize and add randomness for unpredictability
+            const length = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+            if (length > 0) {
+                deltaX = (deltaX / length) * (200 + Math.random() * 150);
+                deltaY = (deltaY / length) * (200 + Math.random() * 150);
+            } else {
+                // If cursor is exactly on button, pick random direction
+                const angle = Math.random() * Math.PI * 2;
+                deltaX = Math.cos(angle) * 250;
+                deltaY = Math.sin(angle) * 250;
+            }
+            
+            // Calculate new position relative to card (but can go outside)
+            let newAbsoluteX = btnCenterX + deltaX;
+            let newAbsoluteY = btnCenterY + deltaY;
+            
+            // Keep within viewport bounds
+            const margin = 20;
+            newAbsoluteX = Math.max(margin, Math.min(window.innerWidth - btnRect.width - margin, newAbsoluteX - btnRect.width / 2));
+            newAbsoluteY = Math.max(margin, Math.min(window.innerHeight - btnRect.height - margin, newAbsoluteY - btnRect.height / 2));
+            
+            // Convert to position relative to container
+            const newX = newAbsoluteX - containerRect.left;
+            const newY = newAbsoluteY - containerRect.top;
+            
+            // Apply position
+            btnNo.style.left = newX + 'px';
+            btnNo.style.top = newY + 'px';
+        }
+
+        // Show love page
+        function showLove() {
+            const valentinePage = document.getElementById('valentinePage');
+            const lovePage = document.getElementById('lovePage');
+            
+            valentinePage.classList.add('fade-out');
+            
+            setTimeout(() => {
+                lovePage.classList.add('active');
+            }, 800);
+        }
+
+        // Add click event to Yes button
+        document.querySelector('.btn-yes').addEventListener('click', showLove);
+    </script>
+</body>
+</html>
